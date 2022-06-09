@@ -19,23 +19,23 @@ public class LoginController {
 	@Autowired
 	TodoService service;
 	
-	
+	//from browser localhost:8080 we get req and send the form
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String showform(ModelMap Map){
 		return "demo";
 	}
 	
-
+	//from form we get post req & data saved in @Reqparam form URL
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String showdemo(ModelMap model,@RequestParam String name , @RequestParam String password ){
 		                              //url to this @RequestParam String name
 		boolean isValid = service.valid(name, password);
-		
+		//validating username & passwprd that we get
 		if(!isValid) {
 			model.put("err","wrong cred ");
 			return "demo";
 		}
-		          //(jsp,get) 
+		 // putting that data on jsp (jsp,get from service or GET ) 
 		model.put("name", name);  //available to jsp
 		model.put("password", password);
 		
@@ -45,6 +45,7 @@ public class LoginController {
 	@RequestMapping(value="/list-todos",method=RequestMethod.GET)
 	public String todoPage(ModelMap model){
 		String name = (String) model.get("name");
+		// putting that data on jsp{todos} (jsp,get from service or GET ) 
 		model.put("todos",service.retrieveTodos(name));  //take data with same name and show on jsp
 		return "list-todos";
 	}
