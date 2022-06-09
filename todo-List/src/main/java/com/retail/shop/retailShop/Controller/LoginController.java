@@ -28,14 +28,15 @@ public class LoginController {
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String showdemo(ModelMap model,@RequestParam String name , @RequestParam String password ){
+		                           
 		boolean isValid = service.valid(name, password);
 		
 		if(!isValid) {
 			model.put("err","wrong cred ");
 			return "demo";
 		}
-		
-		model.put("name", name);
+		          //(get,jsp) 
+		model.put("name", name);  //available to jsp
 		model.put("password", password);
 		
 		return "welcome";
